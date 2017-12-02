@@ -1,0 +1,64 @@
+.header-div {
+  font-family: 'Slabo 27px', serif;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: pink;
+  width: 100%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.header-div-nav-links {
+  display: flex;
+  justify-content: space-around;
+}
+
+.header-div-nav-links a{
+  padding-left: 1rem;
+  padding-right: 1rem;
+  text-decoration: none;
+  color: black;
+}
+
+.header-div-nav-links a:hover{
+  background-color: antiquewhite;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.header-text{
+  font-family: 'Slabo 27px', serif;
+}
+
+.all-campuses{
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.all-students{
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+#footer{
+  position: fixed;
+  bottom: 0%;
+  width: 100%;
+  background-color: lightgray;
+  align-content: center;
+  justify-content: center;
+}
+
+#footer p{
+  font-size: 10px;
+  text-align: center;
+}
