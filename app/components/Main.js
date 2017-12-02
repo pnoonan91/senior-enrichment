@@ -3,6 +3,7 @@ import { HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import Header from './Header';
 import AllCampuses from './AllCampuses';
 import AllStudents from './AllStudents';
+import StatefulCampuses from './StatefulCampuses';
 
 export default class Main extends Component{
   render(){
@@ -13,7 +14,7 @@ export default class Main extends Component{
             <Header />
           </div>
             <Switch>
-              <Route exact path="/" component={AllCampuses} />
+              <Route exact path="/" component={StatefulCampuses} />
               <Route exact path="/students" component={AllStudents} />
             </Switch>
             <div id="footer">

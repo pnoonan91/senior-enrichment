@@ -13,7 +13,7 @@ var Campuses = db.define('Campuses', {
   },
   imageUrl: {
     type: Sequelize.TEXT,
-    defaultValue: 'https://imgur.com/tByP9wz'
+    defaultValue: 'https://lh3.googleusercontent.com/JYDGXArAYUBBLhmne_Ef3Fs6bmGNkI1AGmNK13OUTvwwoIP31bHPuA-K_7p5QL41HMen=w300'
   },
   description: {
     type: Sequelize.TEXT
