@@ -1,12 +1,60 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
+function addNewStudent() {
+  var element = document.getElementById("add-student-pane")
+
+  if(!element.style.display){
+    element.style.display = "block";
+  }
+  else if(element.style.display === "none"){
+    element.style.display = "block";
+  } else{
+    element.style.display = "none";
+  }
+
+}
+
+function submitHandler(event) {
+  event.preventDefault();
+
+
+}
+
 const AllStudents = (props) => {
   const students = props.students;
+  const campuses = props.campuses;
 
   return(
-    <div className="all-students">
-    <h1 className="header-text">All Students</h1>
+  <div className="all-students">
+    <div className="all-students-header">
+      <h1 className="header-text">All Students</h1>
+      <a id="add-new-student" onClick={addNewStudent}>+New Student</a>
+    </div>
+    <div id="add-student-pane">
+    <h2 className="header-text">Add New Student</h2>
+     <form id="student-input" onSubmit={submitHandler}>
+      <div>
+        <label>First Name</label>
+        <input />
+      </div>
+      <div>
+        <label>Last Name</label>
+        <input />
+      </div>
+      <div>
+        <label>Campus</label>
+        <select name="campus">
+          {
+            campuses.map(campus => (
+              <option key={campus.id} value={campus.id}>{campus.name}</option>
+            ))
+          }
+        </select>
+        <button>Submit</button>
+      </div>
+     </form>
+    </div>
     <table id="all-students-table">
       <tr id="all-students-table-header">
         <th className="student-table-header">Student ID</th>
