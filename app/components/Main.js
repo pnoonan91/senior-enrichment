@@ -4,6 +4,8 @@ import Header from './Header';
 import AllCampuses from './AllCampuses';
 import AllStudents from './AllStudents';
 import StatefulCampuses from './StatefulCampuses';
+import StatefulStudents from './StatefulStudents';
+import SingleCampus from './SingleCampus';
 
 export default class Main extends Component{
   render(){
@@ -15,7 +17,8 @@ export default class Main extends Component{
           </div>
             <Switch>
               <Route exact path="/" component={StatefulCampuses} />
-              <Route exact path="/students" component={AllStudents} />
+              <Route path='/campuses/:campusId' component={SingleCampus} />
+              <Route exact path="/students" component={StatefulStudents} />
             </Switch>
             <div id="footer">
               <p>©2017 - The Margaret Hamilton Interplanetary Academy of JavaScript</p>

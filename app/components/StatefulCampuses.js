@@ -17,14 +17,11 @@ export default class StatefulCampuses extends Component {
     .then(campuses => {
       this.setState({campuses});
     });
-
-    console.log(this.state.campuses);
   }
 
   render() {
 
     const campuses = this.state.campuses;
-    console.log(campuses);
 
     return(
       <AllCampuses campuses={campuses} />

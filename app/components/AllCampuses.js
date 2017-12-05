@@ -13,12 +13,12 @@ const AllCampuses = (props) => {
           {
             campuses.map(campus => (
               <div key={campus.id} className="campus">
-                <Link className="thunbnail" to="#">
+                <Link className="thunbnail" to={"/campuses/" + campus.id}>
                   <img src={campus.imageUrl} />
                   <div className="caption">
-                    <h5>
+                    <h2>
                       <span>{campus.name}</span>
-                    </h5>
+                    </h2>
                   </div>
                 </Link>
               </div>

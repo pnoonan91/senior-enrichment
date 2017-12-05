@@ -32,7 +32,7 @@ var Students = db.define('Students', {
 }, {
   getterMethods: {
     name() {
-      return this.firstName + this.lastName;
+      return this.firstName + " " + this.lastName;
     }
   }
 });

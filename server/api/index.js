@@ -10,23 +10,26 @@ const Students = models.Students;
 	// Ideally you would have something to handle this, so if you have time try that out!
 
 apiRouter.get('/campuses', (req, res, next) => {
-	Campuses.findAll()
+	Campuses.findAll({include: Students})
 	.then(campuses => res.json(campuses))
 	.catch(next);
 });
 
 apiRouter.get('/campuses/:campus', (req, res, next) => {
-	Campuses.findAll({
+	Campuses.findOne({
 		where: {
 			id: req.params.campus
-		}
+		},
+		include: Students
 	})
 	.then(campus => res.json(campus))
 	.catch(next);
 });
 
 apiRouter.get('/students', (req, res, next) => {
-	Students.findAll()
+	Students.findAll({
+		include: Campuses
+	})
 	.then(students => res.json(students))
 	.catch(next);
 });

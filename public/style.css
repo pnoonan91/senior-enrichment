@@ -44,6 +44,11 @@ body{
   padding-right: 2rem;
 }
 
+.single-campus{
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
 .all-students{
   padding-left: 2rem;
   padding-right: 2rem;
@@ -92,4 +97,40 @@ body{
 a {
   text-decoration: none;
   color: black;
+}
+
+#all-students-table {
+  width: 100%
+}
+
+#all-students-table-campus {
+  width: 80%
+}
+
+#all-students-table-header{
+  text-align: left;
+  font-weight: bold;
+  background-color: #ffedf0de
+}
+
+.student-listing{
+  font-size: .75rem;
+}
+
+.student-listing-item-center{
+  text-align: center
+}
+
+.remove-student {
+  text-align: center;
+}
+
+.remove-student a{
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
+
+.remove-student a:hover{
+  background-color: rgb(245, 151, 151)
 }
