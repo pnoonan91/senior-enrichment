@@ -3,8 +3,6 @@ import { HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import Header from './Header';
 import AllCampuses from './AllCampuses';
 import AllStudents from './AllStudents';
-import StatefulCampuses from './StatefulCampuses';
-import StatefulStudents from './StatefulStudents';
 import SingleCampus from './SingleCampus';
 import {gotCampusesFromServer, fetchCampuses, fetchStudents} from '../reducers';
 import store from '../store';
