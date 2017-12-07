@@ -1,32 +1,12 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 
-function addNewStudent() {
-  var element = document.getElementById("add-student-pane")
+function AllStudents (props) {
+  const {students, campuses} = props;
 
-  if(!element.style.display){
-    element.style.display = "block";
-  }
-  else if(element.style.display === "none"){
-    element.style.display = "block";
-  } else{
-    element.style.display = "none";
-  }
-
-}
-
-function submitHandler(event) {
-  event.preventDefault();
-
-
-}
-
-const AllStudents = (props) => {
-  const students = props.students;
-  const campuses = props.campuses;
-
-  return(
-  <div className="all-students">
+  return (
+    <div className="all-students">
     <div className="all-students-header">
       <h1 className="header-text">All Students</h1>
       <a id="add-new-student" onClick={addNewStudent}>+New Student</a>
@@ -75,4 +55,33 @@ const AllStudents = (props) => {
   )
 }
 
-export default AllStudents;
+function addNewStudent() {
+  var element = document.getElementById("add-student-pane")
+
+  if(!element.style.display){
+    element.style.display = "block";
+  }
+  else if(element.style.display === "none"){
+    element.style.display = "block";
+  } else{
+    element.style.display = "none";
+  }
+
+}
+
+function submitHandler(event) {
+  event.preventDefault();
+
+
+}
+
+const mapStateToProps = function(state) {
+  return {
+    campuses: state.campuses,
+    students: state.students
+  }
+}
+
+const AllStudentsContainer = connect(mapStateToProps)(AllStudents);
+
+export default AllStudentsContainer;

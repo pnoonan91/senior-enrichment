@@ -13,11 +13,7 @@ export default class StatefulStudents extends Component {
   }
 
   componentDidMount(){
-    axios.get('/api/students')
-    .then(res => res.data)
-    .then(students => {
-      this.setState({students});
-    });
+
 
     axios.get('/api/campuses')
     .then(res => res.data)

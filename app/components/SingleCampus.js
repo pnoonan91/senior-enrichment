@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import StudentsInCampus from './StudentsInCampus';
+import { connect } from 'react-redux';
 
 export default class SingleCampus extends Component{
   constructor(){
@@ -29,5 +30,13 @@ export default class SingleCampus extends Component{
         <StudentsInCampus students={students}/>
       </div>
     )
+  }
+}
+
+const mapStateToProps = function (state, ownProps) {
+  const campusId = Number(ownProps.match.params.campusId);
+
+  return{
+    campus: state.campuses.find(campus => campus.id === campusId)
   }
 }

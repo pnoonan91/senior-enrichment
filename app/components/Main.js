@@ -6,14 +6,16 @@ import AllStudents from './AllStudents';
 import StatefulCampuses from './StatefulCampuses';
 import StatefulStudents from './StatefulStudents';
 import SingleCampus from './SingleCampus';
-import {gotCampusesFromServer, fetchCampuses} from '../reducers';
+import {gotCampusesFromServer, fetchCampuses, fetchStudents} from '../reducers';
 import store from '../store';
 
 export default class Main extends Component{
 
   componentDidMount(){
     const campusesThunk = fetchCampuses();
+    const studentsThunk = fetchStudents();
     store.dispatch(campusesThunk);
+    store.dispatch(studentsThunk);
   }
 
   render(){
@@ -26,7 +28,7 @@ export default class Main extends Component{
             <Switch>
               <Route exact path="/" component={AllCampuses} />
               <Route path='/campuses/:campusId' component={SingleCampus} />
-              <Route exact path="/students" component={StatefulStudents} />
+              <Route exact path="/students" component={AllStudents} />
             </Switch>
             <div id="footer">
               <p>©2017 - The Margaret Hamilton Interplanetary Academy of JavaScript</p>
