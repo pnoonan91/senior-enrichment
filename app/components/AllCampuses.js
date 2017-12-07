@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 
+function AllCampuses (props) {
 
-const AllCampuses = (props) => {
-
-  const campuses = props.campuses;
+  const {campuses} = props;
 
     return(
       <div className="all-campuses">
@@ -30,4 +30,12 @@ const AllCampuses = (props) => {
     );
 }
 
-export default AllCampuses;
+const mapStateToProps = function(state) {
+  return {
+    campuses: state.campuses
+  };
+};
+
+const AllCampusContainer = connect(mapStateToProps)(AllCampuses);
+
+export default AllCampusContainer;
