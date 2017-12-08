@@ -13,6 +13,8 @@ const GOT_CAMPUSES_FROM_SERVER = 'GOT_CAMPUSES_FROM_SERVER';
 const GOT_STUDENTS_FROM_SERVER = 'GOT_STUDENTS_FROM_SERVER';
 const ADD_NEW_STUDENT = 'ADD_NEW_STUDENT';
 const DELETE_STUDENT_FROM_DB = 'DELETE_STUDENT_FROM_DB';
+const ADD_NEW_CAMPUS = 'ADD_NEW_CAMPUS';
+const DELETE_CAMPUS_FROM_DB = 'DELETE_CAMPUS_FROM_DB';
 
 /*-------------------- ACTION CREATORS --------------------*/
 export const gotCampusesFromServer = function(campuses) {
@@ -40,6 +42,20 @@ export const deleteStudentFromDb = function(studentId) {
   return {
     type: DELETE_STUDENT_FROM_DB,
     studentId: studentId
+  }
+}
+
+export const addNewCampusToServer = function(campus) {
+  return{
+    type: ADD_NEW_CAMPUS,
+    campus: campus
+  }
+}
+
+export const deleteCampusFromDb = function(campusId){
+  return{
+    type: DELETE_CAMPUS_FROM_DB,
+    campusId: campusId
   }
 }
 
@@ -76,7 +92,11 @@ const rootReducer = function(state = initialState, action) {
     case ADD_NEW_STUDENT:
       return Object.assign({}, state, {students: state.students.concat(action.student)});
     case DELETE_STUDENT_FROM_DB:
-      return Object.assign({}, state, {students: state.students.filter(student => student.id !== action.studentId)})
+      return Object.assign({}, state, {students: state.students.filter(student => student.id !== action.studentId)});
+    case ADD_NEW_CAMPUS:
+      return Object.assign({}, state, {campuses: state.campuses.concat(action.campus)});
+    case DELETE_CAMPUS_FROM_DB:
+      return Object.assign({}, state, {campuses: state.campuses.filter(campus => campus.id !== action.campusId)});
     default: return state;
   }
 };

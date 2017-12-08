@@ -69,7 +69,22 @@ apiRouter.delete('/student/:student', (req, res, next) => {
 		res.sendStatus(200);
 	})
 	.catch(next);
-})
+});
+
+apiRouter.delete('/campus/:campus', (req, res, next) => {
+	let id = parseInt(req.params.campus)
+
+	Campuses.destroy({
+		where: {
+			id: id
+		}
+	})
+	.then(num => {
+		console.log(num)
+		res.sendStatus(200);
+	})
+	.catch(next);
+});
 
 // apiRouter.put('/student/:id', (req, res, next) => {
 // 	Students.findOne({

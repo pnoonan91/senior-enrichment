@@ -20,7 +20,6 @@ var Students = db.define('Students', {
   },
   email: {
     type: Sequelize.STRING,
-    allowNull: false,
     validate: {
       notEmpty: true,
       isEmail: true
@@ -35,6 +34,13 @@ var Students = db.define('Students', {
       return this.firstName + " " + this.lastName;
     }
   }
+});
+
+Students.beforeCreate(function(student){
+  let email = student.firstName.toLowerCase() + '.' + student.lastName.toLowerCase() + '@margarethamiltonacademy.org';
+
+  student.email = email;
+
 });
 
 module.exports = Students;

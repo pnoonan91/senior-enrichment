@@ -82,7 +82,6 @@ function submitHandler(event) {
   axios.post('/api/student', {
     firstName: firstName,
     lastName: lastName,
-    email: 'test@margjs.org',
     gpa: 0.0,
     CampusId: campus
   })
@@ -97,7 +96,6 @@ function removeStudent(event) {
   event.preventDefault();
 
   let studentId = parseInt(event.target.value) ;
-  console.log(studentId);
 
   axios.delete(`/api/student/${studentId}`, {
       studentId: studentId

@@ -13,10 +13,16 @@ var Campuses = db.define('Campuses', {
   },
   imageUrl: {
     type: Sequelize.TEXT,
-    defaultValue: 'https://lh3.googleusercontent.com/JYDGXArAYUBBLhmne_Ef3Fs6bmGNkI1AGmNK13OUTvwwoIP31bHPuA-K_7p5QL41HMen=w300'
+    defaultValue: 'https://www.ljmu.ac.uk/~/media/ljmu/news/starsedit.jpg'
   },
   description: {
     type: Sequelize.TEXT
+  }
+}, {
+  getterMethods: {
+    shortDescription(){
+      return this.description.slice(0,170).concat('...');
+    }
   }
 });
 
