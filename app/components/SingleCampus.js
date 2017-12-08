@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
 
 function SingleCampus (props) {
   const { campus, students } = props;
@@ -18,7 +19,7 @@ function SingleCampus (props) {
         {students && students.map(student => (
           <tr className="student-listing" key={student.id}>
             <td className="student-listing-item-center">{student.id}</td>
-            <td className="student-listing-item">{student.name}</td>
+            <td className="student-listing-item"><Link to={`/students/${student.id}`}>{student.name}</Link></td>
           </tr>
         ))}
       </table>
