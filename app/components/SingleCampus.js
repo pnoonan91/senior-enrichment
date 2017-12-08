@@ -28,6 +28,7 @@ function SingleCampus (props) {
 }
 
 const mapStateToProps = function (state, ownProps) {
+  console.log(ownProps);
   const campusId = Number(ownProps.match.params.campusId);
 
   return{

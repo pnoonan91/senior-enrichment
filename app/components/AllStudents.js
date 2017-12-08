@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
+import axios from 'axios';
+import store from '../store';
+import {addNewStudentToServer} from '../reducers';
 
 function AllStudents (props) {
   const {students, campuses} = props;
@@ -16,11 +19,11 @@ function AllStudents (props) {
      <form id="student-input" onSubmit={submitHandler}>
       <div>
         <label>First Name</label>
-        <input />
+        <input name="firstName" />
       </div>
       <div>
         <label>Last Name</label>
-        <input />
+        <input name="lastName" />
       </div>
       <div>
         <label>Campus</label>
@@ -46,7 +49,7 @@ function AllStudents (props) {
         <tr className="student-listing" key={student.id}>
           <td className="student-listing-item-center">{student.id}</td>
           <td className="student-listing-item">{student.name}</td>
-          <td className="student-listing-item">{student.Campus.name}</td>
+          <td className="student-listing-item">{campuses.filter(campus => campus.id === student.CampusId)[0].name}</td>
           <td className = "remove-student"><Link to="">X</Link></td>
         </tr>
       ))}
@@ -72,7 +75,22 @@ function addNewStudent() {
 function submitHandler(event) {
   event.preventDefault();
 
+  let firstName = event.target.firstName.value;
+  let lastName = event.target.lastName.value;
+  let campus = event.target.campus.value;
 
+  axios.post('/api/student', {
+    firstName: firstName,
+    lastName: lastName,
+    email: 'test@margjs.org',
+    gpa: 0.0,
+    CampusId: campus
+  })
+  .then(res => res.data)
+  .then(student => {
+    store.dispatch(addNewStudentToServer(student));
+    document.getElementById('student-input').reset();
+  });
 }
 
 const mapStateToProps = function(state) {
