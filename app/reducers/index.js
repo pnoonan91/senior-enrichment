@@ -12,7 +12,7 @@ const initialState = {
 const GOT_CAMPUSES_FROM_SERVER = 'GOT_CAMPUSES_FROM_SERVER';
 const GOT_STUDENTS_FROM_SERVER = 'GOT_STUDENTS_FROM_SERVER';
 const ADD_NEW_STUDENT = 'ADD_NEW_STUDENT';
-
+const DELETE_STUDENT_FROM_DB = 'DELETE_STUDENT_FROM_DB';
 
 /*-------------------- ACTION CREATORS --------------------*/
 export const gotCampusesFromServer = function(campuses) {
@@ -33,6 +33,13 @@ export const addNewStudentToServer = function(student) {
   return{
     type: ADD_NEW_STUDENT,
     student: student
+  }
+}
+
+export const deleteStudentFromDb = function(studentId) {
+  return {
+    type: DELETE_STUDENT_FROM_DB,
+    studentId: studentId
   }
 }
 
@@ -68,6 +75,8 @@ const rootReducer = function(state = initialState, action) {
       return Object.assign({}, state, {students: action.students});
     case ADD_NEW_STUDENT:
       return Object.assign({}, state, {students: state.students.concat(action.student)});
+    case DELETE_STUDENT_FROM_DB:
+      return Object.assign({}, state, {students: state.students.filter(student => student.id !== action.studentId)})
     default: return state;
   }
 };

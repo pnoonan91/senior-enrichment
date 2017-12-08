@@ -56,6 +56,21 @@ apiRouter.post('/student', (req, res, next) => {
 	.catch(next);
 });
 
+apiRouter.delete('/student/:student', (req, res, next) => {
+	let id = parseInt(req.params.student)
+	console.log(id)
+	Students.destroy({
+		where: {
+			id: id
+		}
+	})
+	.then(num => {
+		console.log(num)
+		res.sendStatus(200);
+	})
+	.catch(next);
+})
+
 // apiRouter.put('/student/:id', (req, res, next) => {
 // 	Students.findOne({
 // 		where: {
