@@ -35,10 +35,11 @@ apiRouter.get('/students', (req, res, next) => {
 });
 
 apiRouter.get('/students/:studentId', (req, res, next) => {
-	Students.findAll({
+	Students.findOne({
 		where: {
-			id: req.params.student
-		}
+			id: req.params.studentId
+		},
+		include: Campuses
 	})
 	.then(student => res.json(student))
 	.catch(next);
@@ -51,7 +52,7 @@ apiRouter.post('/campus', (req, res, next) => {
 });
 
 apiRouter.post('/student', (req, res, next) => {
-	Students.create(req.body)
+	Students.create(req.body,{include: [Campuses]})
 	.then(student => res.status(201).json(student))
 	.catch(next);
 });

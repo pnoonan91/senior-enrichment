@@ -13,7 +13,7 @@ var Campuses = db.define('Campuses', {
   },
   imageUrl: {
     type: Sequelize.TEXT,
-    defaultValue: 'https://www.ljmu.ac.uk/~/media/ljmu/news/starsedit.jpg'
+    defaultValue: 'https://media.salon.com/2017/11/planet-nine-620x412.jpg'
   },
   description: {
     type: Sequelize.TEXT

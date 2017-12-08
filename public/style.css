@@ -189,6 +189,10 @@ a {
   font-size: .75rem;
 }
 
+.single-student h1{
+  margin-bottom: 0;
+}
+
 .single-student-table{
   border: 1px solid black;
   border-collapse: collapse;

@@ -111,6 +111,8 @@ const mapStateToProps = function(state) {
   }
 }
 
-const AllStudentsContainer = connect(mapStateToProps)(AllStudents);
+const mapDispatch = {addNewStudentToServer}
+
+const AllStudentsContainer = connect(mapStateToProps, mapDispatch)(AllStudents);
 
 export default AllStudentsContainer;
