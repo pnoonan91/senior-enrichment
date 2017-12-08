@@ -48,7 +48,7 @@ function AllStudents (props) {
       {students.map(student => (
         <tr className="student-listing" key={student.id}>
           <td className="student-listing-item-center">{student.id}</td>
-          <td className="student-listing-item">{student.name}</td>
+          <td className="student-listing-item"><Link to={`/students/${student.id}`}>{student.name}</Link></td>
           <td className="student-listing-item">{campuses.filter(campus => campus.id === student.CampusId)[0].name}</td>
           <td className = "remove-student"><button value={student.id} onClick={removeStudent}>X</button></td>
         </tr>
@@ -96,7 +96,7 @@ function submitHandler(event) {
 function removeStudent(event) {
   event.preventDefault();
 
-  let studentId = parseInt(event.target.value);
+  let studentId = parseInt(event.target.value) ;
   console.log(studentId);
 
   axios.delete(`/api/student/${studentId}`, {

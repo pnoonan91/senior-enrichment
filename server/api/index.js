@@ -34,7 +34,7 @@ apiRouter.get('/students', (req, res, next) => {
 	.catch(next);
 });
 
-apiRouter.get('/students/:student', (req, res, next) => {
+apiRouter.get('/students/:studentId', (req, res, next) => {
 	Students.findAll({
 		where: {
 			id: req.params.student

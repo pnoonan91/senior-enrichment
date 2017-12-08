@@ -6,6 +6,7 @@ import AllStudents from './AllStudents';
 import SingleCampus from './SingleCampus';
 import {gotCampusesFromServer, fetchCampuses, fetchStudents} from '../reducers';
 import store from '../store';
+import SingleStudent from './SingleStudent';
 
 export default class Main extends Component{
 
@@ -27,6 +28,7 @@ export default class Main extends Component{
               <Route exact path="/" component={AllCampuses} />
               <Route path='/campuses/:campusId' component={SingleCampus} />
               <Route exact path="/students" component={AllStudents} />
+              <Route exact path="/students/:studentId" component={SingleStudent} />
             </Switch>
             <div id="footer">
               <p>©2017 - The Margaret Hamilton Interplanetary Academy of JavaScript</p>
