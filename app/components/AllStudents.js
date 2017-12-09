@@ -7,6 +7,8 @@ import {addNewStudentToServer, deleteStudentFromDb} from '../reducers';
 
 function AllStudents (props) {
   const {students, campuses} = props;
+  console.log('campuses ', campuses);
+  console.log('students ', students);
 
   return (
     <div className="all-students">
@@ -49,7 +51,8 @@ function AllStudents (props) {
         <tr className="student-listing" key={student.id}>
           <td className="student-listing-item-center">{student.id}</td>
           <td className="student-listing-item"><Link to={`/students/${student.id}`}>{student.name}</Link></td>
-          <td className="student-listing-item">{campuses.filter(campus => campus.id === student.CampusId)[0].name}</td>
+          <td className="student-listing-item">{campuses.filter(campus =>
+            campus.id === student.CampusId)[0].name}</td>
           <td className = "remove-student"><button value={student.id} onClick={removeStudent}>X</button></td>
         </tr>
       ))}

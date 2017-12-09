@@ -183,6 +183,31 @@ a {
   border: black solid 1px;
 }
 
+#edit-student-pane {
+  display: none;
+  background-color: #efefef;
+  padding: 0.5rem;
+  margin-top: 0px;
+  margin-bottom: 1rem;
+  border: black solid 1px;
+}
+
+#edit-student {
+  align-self: center;
+  font-weight: bold;
+}
+
+#edit-student:hover{
+  background-color: #ffedf0de;
+  border-bottom: 3px solid pink;
+}
+
+.single-student-header {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
 #student-input {
   display: flex;
   justify-content: space-between;

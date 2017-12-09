@@ -87,21 +87,24 @@ apiRouter.delete('/campus/:campus', (req, res, next) => {
 	.catch(next);
 });
 
-// apiRouter.put('/student/:id', (req, res, next) => {
-// 	Students.findOne({
-// 		where: {
-// 			id: req.params.id
-// 		}
-// 	})
-// 	.then(student => student.dataValues)
-// 	.then((results) => {
+apiRouter.put('/student/:student', (req, res, next) => {
+	let id = parseInt(req.params.student)
 
-// 	})
-// });
+	console.log(req.body)
 
-// apiRouter.put('/campus', (req, res, next) => {
-
-// });
+	Students.findOne({
+		where: {
+			id: id
+		},
+		include: Campuses
+	})
+		.then(student => student.update(req.body))
+		.then(result => {
+			res.status(200).json(result)
+			console.log(result)
+		})
+		.catch(next);
+});
 
 // You can put all routes in this file; HOWEVER, this file should almost be like a table of contents for the routers you create
 

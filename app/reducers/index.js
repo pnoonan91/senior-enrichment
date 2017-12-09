@@ -15,6 +15,7 @@ const ADD_NEW_STUDENT = 'ADD_NEW_STUDENT';
 const DELETE_STUDENT_FROM_DB = 'DELETE_STUDENT_FROM_DB';
 const ADD_NEW_CAMPUS = 'ADD_NEW_CAMPUS';
 const DELETE_CAMPUS_FROM_DB = 'DELETE_CAMPUS_FROM_DB';
+const UPDATE_STUDENT = 'UPDATE_STUDENT';
 
 /*-------------------- ACTION CREATORS --------------------*/
 export const gotCampusesFromServer = function(campuses) {
@@ -59,6 +60,13 @@ export const deleteCampusFromDb = function(campusId){
   }
 }
 
+export const updateStudentInDb = function(student){
+  return{
+    type: UPDATE_STUDENT,
+    student: student
+  }
+}
+
 /*-------------------- THUNK CREATORS --------------------*/
 export function fetchCampuses(){
   return function(dispatch){
@@ -97,6 +105,8 @@ const rootReducer = function(state = initialState, action) {
       return Object.assign({}, state, {campuses: state.campuses.concat(action.campus)});
     case DELETE_CAMPUS_FROM_DB:
       return Object.assign({}, state, {campuses: state.campuses.filter(campus => campus.id !== action.campusId)});
+    case UPDATE_STUDENT:
+      return Object.assign({}, state, {students: state.students.filter(student => student.id !== action.student.id).concat(action.student)});
     default: return state;
   }
 };
