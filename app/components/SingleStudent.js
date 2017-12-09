@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
-import {updateStudentInDb} from '../reducers';
+import {updateStudentInDb, fetchStudents} from '../reducers';
 import store from '../store';
 
 function SingleStudent (props) {
-  const {students, campuses, allCampuses} = props;
-  console.log('allCampuses: ', allCampuses)
+  const {students, campuses, allCampuses, currentCampus} = props;
+  let campusName = allCampuses.find(campus => campus.id === students.CampusId)
+  // console.log('STUDENTS CAMPUS NAME ', campusName.name)
 
   return(
     <div className="single-student">
@@ -55,7 +56,7 @@ function SingleStudent (props) {
           </tr>
           <tr>
             <td>Campus:</td>
-            <td><Link to={`/campuses/${students.CampusId}`}>{students.Campus.name}</Link></td>
+            <td><Link to={`/campuses/${students.CampusId}`}>{students.Campus && students.Campus.name}</Link></td>
           </tr>
           <tr>
               <td>GPA:</td>
@@ -82,7 +83,7 @@ function editStudent() {
 
 function submitHandler(event) {
   event.preventDefault();
-  console.log('student id: ', event.target.studentId.value);
+
   axios.put(`/api/student/${event.target.studentId.value}`, {
     firstName: event.target.firstName.value,
     lastName: event.target.lastName.value,
@@ -91,7 +92,9 @@ function submitHandler(event) {
   })
     .then(res => res.data)
     .then(student => {
-      store.dispatch(updateStudentInDb(student))
+
+      store.dispatch(fetchStudents())
+      document.getElementById('edit-student-input').reset();
     })
 }
 
@@ -99,13 +102,13 @@ const mapStateToProps = function (state, ownProps) {
   const studentId = Number(ownProps.match.params.studentId);
   const currentStudent = state.students.find(student => student.id === studentId);
   const allCampuses = state.campuses;
-
-  console.log('currentStudent: ', currentStudent, ' state.campuses ', state.campuses);
+  const currentCampus = state.campuses.find(campus => campus.id === currentStudent.CampusId);
 
   return {
     students: currentStudent,
     campuses: currentStudent.Campus,
-    allCampuses: allCampuses
+    allCampuses: allCampuses,
+    currentCampus: currentCampus
   };
 };
 

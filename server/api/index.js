@@ -95,13 +95,17 @@ apiRouter.put('/student/:student', (req, res, next) => {
 	Students.findOne({
 		where: {
 			id: id
-		},
-		include: Campuses
+		}
 	})
 		.then(student => student.update(req.body))
+		.then(Students.findOne({
+			where: {
+				id: id
+			},
+			include: Campuses
+		}))
 		.then(result => {
 			res.status(200).json(result)
-			console.log(result)
 		})
 		.catch(next);
 });

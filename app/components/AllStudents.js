@@ -3,12 +3,11 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import store from '../store';
-import {addNewStudentToServer, deleteStudentFromDb} from '../reducers';
+import {addNewStudentToServer, deleteStudentFromDb, fetchStudents} from '../reducers';
 
 function AllStudents (props) {
   const {students, campuses} = props;
-  console.log('campuses ', campuses);
-  console.log('students ', students);
+  console.log(campuses);
 
   return (
     <div className="all-students">
@@ -51,7 +50,7 @@ function AllStudents (props) {
         <tr className="student-listing" key={student.id}>
           <td className="student-listing-item-center">{student.id}</td>
           <td className="student-listing-item"><Link to={`/students/${student.id}`}>{student.name}</Link></td>
-          <td className="student-listing-item">{campuses.filter(campus =>
+          <td className="student-listing-item">{campuses.id && campuses.filter(campus =>
             campus.id === student.CampusId)[0].name}</td>
           <td className = "remove-student"><button value={student.id} onClick={removeStudent}>X</button></td>
         </tr>
@@ -90,7 +89,7 @@ function submitHandler(event) {
   })
   .then(res => res.data)
   .then(student => {
-    store.dispatch(addNewStudentToServer(student));
+    store.dispatch(fetchStudents());
     document.getElementById('student-input').reset();
   });
 }
