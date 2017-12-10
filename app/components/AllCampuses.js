@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import store from '../store';
-import {addNewCampusToServer, deleteCampusFromDb} from '../reducers';
+import {addNewCampusToServer, deleteCampusFromDb, fetchCampuses, fetchStudents} from '../reducers';
 import axios from 'axios';
 
 function AllCampuses (props) {
@@ -100,7 +100,10 @@ function removeCampus(event) {
   axios.delete(`/api/campus/${campusId}`, {
       campusId: campusId
   })
-  .then(() => store.dispatch(deleteCampusFromDb(campusId)));
+  .then(() => {
+    store.dispatch(fetchCampuses());
+    store.dispatch(fetchStudents())
+  });
 
 }
 

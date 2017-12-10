@@ -13,7 +13,7 @@ function SingleStudent (props) {
   return(
     <div className="single-student">
       <div className="single-student-header">
-        <h1 className="header-text">{students.name}</h1>
+        <h1 className="header-text">{(students && students.name)}</h1>
         <a id="edit-student" onClick={editStudent}>+Edit Student Info</a>
       </div>
       <div id="edit-student-pane">
@@ -21,15 +21,15 @@ function SingleStudent (props) {
         <form id="edit-student-input" onSubmit={submitHandler}>
           <div>
             <label>First Name</label>
-            <input name="firstName" defaultValue={students.firstName}/>
+            <input name="firstName" defaultValue={(students && students.firstName)}/>
           </div>
           <div>
             <label>Last Name</label>
-            <input name="lastName" defaultValue={students.lastName}/>
+            <input name="lastName" defaultValue={(students && students.lastName)}/>
           </div>
           <div>
             <label>GPA</label>
-            <input name="gpa" defaultValue={students.gpa}/>
+            <input name="gpa" defaultValue={(students && students.gpa)}/>
           </div>
           <div>
             <label>Campus</label>
@@ -40,27 +40,27 @@ function SingleStudent (props) {
               ))
             }
             </select>
-            <button name="studentId" value={students.id}>Submit</button>
+            <button name="studentId" value={(students && students.id)}>Submit</button>
           </div>
         </form>
       </div>
-        <a href={"mailto:" + students.email}>{students.email}</a>
+        <a href={"mailto:" + (students && students.email)}>{(students && students.email)}</a>
         <table className="single-student-table">
           <tr>
             <td>First Name:</td>
-            <td>{students.firstName}</td>
+            <td>{(students && students.firstName)}</td>
           </tr>
           <tr>
             <td>Last Name:</td>
-            <td>{students.lastName}</td>
+            <td>{(students && students.lastName)}</td>
           </tr>
           <tr>
             <td>Campus:</td>
-            <td><Link to={`/campuses/${students.CampusId}`}>{students.Campus && students.Campus.name}</Link></td>
+            <td><Link to={`/campuses/${(students && students.CampusId)}`}>{students && students.Campus.name}</Link></td>
           </tr>
           <tr>
               <td>GPA:</td>
-              <td>{students.gpa}</td>
+              <td>{(students && students.gpa)}</td>
             </tr>
         </table>
     </div>
@@ -106,7 +106,7 @@ const mapStateToProps = function (state, ownProps) {
 
   return {
     students: currentStudent,
-    campuses: currentStudent.Campus,
+    campuses: (currentStudent && currentStudent.Campus),
     allCampuses: allCampuses,
     currentCampus: currentCampus
   };
