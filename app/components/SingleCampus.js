@@ -118,6 +118,7 @@ function submitHandler(event) {
 
       store.dispatch(fetchCampuses());
       document.getElementById('edit-campus-input').reset();
+      editCampus();
     })
 }
 
@@ -138,6 +139,7 @@ function studentSubmitHandler(event) {
   .then(student => {
     store.dispatch(fetchStudents());
     document.getElementById('student-input').reset();
+    addStudent();
   });
 }
 

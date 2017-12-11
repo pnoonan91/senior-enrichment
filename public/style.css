@@ -375,3 +375,35 @@ a {
   justify-content: space-between;
   font-size: .75rem;
 }
+
+button {
+  background-color: rgb(189, 189, 189);
+  border: 0.5px solid grey;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: .75rem;
+}
+
+button:hover{
+  background-color: grey
+}
+
+.delete-button{
+  background-color: rgb(255, 132, 132);
+}
+
+.delete-button:hover{
+  background-color: rgb(255, 64, 64)
+}
+
+.remove-student{
+  background-color: rgb(255, 132, 132);
+  padding: 2px 2px;
+}
+
+.remove-student:hover{
+  background-color: rgb(255, 64, 64)
+}

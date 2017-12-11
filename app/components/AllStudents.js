@@ -51,7 +51,7 @@ function AllStudents (props) {
           <td className="student-listing-item">{student.id}</td>
           <td className="student-listing-item"><Link to={`/students/${student.id}`}>{student.name}</Link></td>
           <td className="student-listing-item"><Link to={`/campuses/${student.Campus.id}`}>{student.Campus && student.Campus.name}</Link></td>
-          <td className = "remove-student"><button value={student.id} onClick={removeStudent}>X</button></td>
+          <td><button className = "remove-student" value={student.id} onClick={removeStudent}>X</button></td>
         </tr>
       ))}
     </table>
@@ -90,6 +90,7 @@ function submitHandler(event) {
   .then(student => {
     store.dispatch(fetchStudents());
     document.getElementById('student-input').reset();
+    addNewStudent();
   });
 }
 

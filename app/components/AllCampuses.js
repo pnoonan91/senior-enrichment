@@ -48,7 +48,7 @@ function AllCampuses (props) {
                       {campus.shortDescription}
                     </p>
                     <div className="delete-campus">
-                      <button className="delete-campus-btn" value={campus.id} onClick={removeCampus}>Remove Campus</button>
+                      <button className="delete-button" value={campus.id} onClick={removeCampus}>Remove Campus</button>
                     </div>
                   </div>
                 </Link>
@@ -89,6 +89,7 @@ function submitHandler(event) {
   .then(campus => {
     store.dispatch(addNewCampusToServer(campus));
     document.getElementById('campus-input').reset();
+    addNewCampus();
   });
 }
 
