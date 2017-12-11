@@ -7,6 +7,7 @@ import SingleCampus from './SingleCampus';
 import {gotCampusesFromServer, fetchCampuses, fetchStudents} from '../reducers';
 import store from '../store';
 import SingleStudent from './SingleStudent';
+import Welcome from './Welcome';
 
 export default class Main extends Component{
 
@@ -25,7 +26,8 @@ export default class Main extends Component{
             <Header />
           </div>
             <Switch>
-              <Route exact path="/" component={AllCampuses} />
+              <Route exact path="/" component={Welcome} />
+              <Route exact path="/campuses" component={AllCampuses} />
               <Route path='/campuses/:campusId' component={SingleCampus} />
               <Route exact path="/students" component={AllStudents} />
               <Route exact path="/students/:studentId" component={SingleStudent} />

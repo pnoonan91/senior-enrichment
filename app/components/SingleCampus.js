@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
-import {fetchCampuses, fetchStudents} from '../reducers';
+import {fetchCampuses, fetchStudents, deleteStudentFromDb} from '../reducers';
 import store from '../store';
 
 function SingleCampus (props) {
@@ -37,18 +37,37 @@ function SingleCampus (props) {
       <h4 className="campus-description-page">{campus && campus.description}</h4>
       <div className="all-students">
       <div className="campus-details-container">
+      <button className="add-student-btn" onClick={addStudent}>Add Student to {campus && campus.name}</button>
       <div className="image-container">
         <img className="campus-page-image" src={campus && campus.imageUrl} />
+      </div>
+      <div id="add-student-pane">
+      <h3 className="header-text">Add New Student to Campus!</h3>
+       <form id="student-input" onSubmit={studentSubmitHandler}>
+        <div>
+          <label>First Name</label>
+          <input name="firstName" />
+        </div>
+        <div>
+          <label>Last Name</label>
+          <input name="lastName" />
+        </div>
+        <div>
+          <button name="campus" value={campus && campus.id}>Submit</button>
+        </div>
+       </form>
       </div>
       <table id="all-students-table-campus">
         <tr id="all-students-table-header">
           <th className="student-table-header">Student ID</th>
           <th className="student-table-header">Full Name</th>
+          <th className="student-table-header">Remove Student</th>
         </tr>
         {students && students.map(student => (
           <tr className="student-listing" key={student.id}>
             <td className="student-listing-item-center">{student.id}</td>
             <td className="student-listing-item"><Link to={`/students/${student.id}`}>{student.name}</Link></td>
+            <td className="student-listing-item"><button value={student.id} onClick={removeStudent}>X</button></td>
           </tr>
         ))}
       </table>
@@ -60,6 +79,20 @@ function SingleCampus (props) {
 
 function editCampus() {
   var element = document.getElementById("edit-campus-pane")
+
+  if(!element.style.display){
+    element.style.display = "block";
+  }
+  else if(element.style.display === "none"){
+    element.style.display = "block";
+  } else{
+    element.style.display = "none";
+  }
+
+}
+
+function addStudent() {
+  var element = document.getElementById("add-student-pane")
 
   if(!element.style.display){
     element.style.display = "block";
@@ -86,6 +119,38 @@ function submitHandler(event) {
       store.dispatch(fetchCampuses());
       document.getElementById('edit-campus-input').reset();
     })
+}
+
+function studentSubmitHandler(event) {
+  event.preventDefault();
+
+  let firstName = event.target.firstName.value;
+  let lastName = event.target.lastName.value;
+  let campus = event.target.campus.value;
+
+  axios.post('/api/student', {
+    firstName: firstName,
+    lastName: lastName,
+    gpa: 0.0,
+    CampusId: campus
+  })
+  .then(res => res.data)
+  .then(student => {
+    store.dispatch(fetchStudents());
+    document.getElementById('student-input').reset();
+  });
+}
+
+function removeStudent(event) {
+  event.preventDefault();
+
+  let studentId = parseInt(event.target.value) ;
+
+  axios.delete(`/api/student/${studentId}`, {
+      studentId: studentId
+  })
+  .then(() => store.dispatch(deleteStudentFromDb(studentId)));
+
 }
 
 const mapStateToProps = function (state, ownProps) {
