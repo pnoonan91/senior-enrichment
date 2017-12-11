@@ -41,17 +41,17 @@ function AllStudents (props) {
     </div>
     <table id="all-students-table">
       <tr id="all-students-table-header">
-        <th className="student-table-header">Student ID</th>
+        <th className="student-table-header-center">Student ID</th>
         <th className="student-table-header">Full Name</th>
         <th className="student-table-header">Campus</th>
-        <th className="student-table-header">Remove Student</th>
+        <th className="student-table-header-center">Remove Student</th>
       </tr>
       {students.map(student => (
         <tr className="student-listing" key={student.id}>
-          <td className="student-listing-item">{student.id}</td>
+          <td className="student-listing-item-center">{student.id}</td>
           <td className="student-listing-item"><Link to={`/students/${student.id}`}>{student.name}</Link></td>
           <td className="student-listing-item"><Link to={`/campuses/${student.Campus.id}`}>{student.Campus && student.Campus.name}</Link></td>
-          <td><button className = "remove-student" value={student.id} onClick={removeStudent}>X</button></td>
+          <td className="student-listing-item-center"><button className = "remove-student" value={student.id} onClick={removeStudent}>X</button></td>
         </tr>
       ))}
     </table>

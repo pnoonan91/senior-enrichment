@@ -197,6 +197,10 @@ a {
   border-bottom: 1px solid lightgray;
 }
 
+.student-table-header-center{
+  text-align: center;
+}
+
 .student-listing{
   font-size: .75rem;
   border-bottom: 1px solid lightgray;
@@ -252,6 +256,10 @@ a {
 
 #add-student-to-campus-pane {
   display: none;
+}
+
+.add-student-btn{
+  margin-bottom: 0.5rem;
 }
 
 #edit-student-pane {
