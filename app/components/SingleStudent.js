@@ -6,9 +6,10 @@ import {updateStudentInDb, fetchStudents} from '../reducers';
 import store from '../store';
 
 function SingleStudent (props) {
+  //deconstruct selected campus & associated students from props to use throughout this component
   const {students, campuses, allCampuses, currentCampus} = props;
+  //allows access to campus name for the selected student
   let campusName = allCampuses.find(campus => campus.id === students.CampusId)
-  // console.log('STUDENTS CAMPUS NAME ', campusName.name)
 
   return(
     <div className="single-student">
@@ -16,8 +17,12 @@ function SingleStudent (props) {
         <h1 className="header-text">{(students && students.name)}</h1>
         <a id="edit-student" onClick={editStudent}>+Edit Student Info</a>
       </div>
+
+      {/* Edit student pane is initially hidden. When a user clicks the '+Edit Student Info' button (displayed above), the edit-student-pane node is displayed, allowing users to edit the student information */}
       <div id="edit-student-pane">
         <h2 className="header-text">Edit Student Info</h2>
+
+        {/* On submit - call the submitHander, which edits the student's information in the DB via axios. Then will re-render the current page by dispatching the updated student to state. */}
         <form id="edit-student-input" onSubmit={submitHandler}>
           <div>
             <label>First Name</label>
@@ -44,29 +49,33 @@ function SingleStudent (props) {
           </div>
         </form>
       </div>
-        <a href={"mailto:" + (students && students.email)}>{(students && students.email)}</a>
-        <table className="single-student-table">
-          <tr>
-            <td>First Name:</td>
-            <td>{(students && students.firstName)}</td>
+
+      {/* Displays student's email address */}
+      <a href={"mailto:" + (students && students.email)}>{(students && students.email)}</a>
+      <table className="single-student-table">
+        <tr>
+          <td>First Name:</td>
+          <td>{(students && students.firstName)}</td>
+        </tr>
+        <tr>
+          <td>Last Name:</td>
+          <td>{(students && students.lastName)}</td>
+        </tr>
+        <tr>
+          <td>Campus:</td>
+          {/* Links to the campus the student is currently assigned to */}
+          <td><Link to={`/campuses/${(students && students.CampusId)}`}>{students && students.Campus.name}</Link></td>
+        </tr>
+        <tr>
+            <td>GPA:</td>
+            <td>{(students && students.gpa)}</td>
           </tr>
-          <tr>
-            <td>Last Name:</td>
-            <td>{(students && students.lastName)}</td>
-          </tr>
-          <tr>
-            <td>Campus:</td>
-            <td><Link to={`/campuses/${(students && students.CampusId)}`}>{students && students.Campus.name}</Link></td>
-          </tr>
-          <tr>
-              <td>GPA:</td>
-              <td>{(students && students.gpa)}</td>
-            </tr>
-        </table>
+      </table>
     </div>
   )
 }
 
+/* Visibility contorl - edit-student-pane is only visible when users click the +Edit Student Info button */
 function editStudent() {
   var element = document.getElementById("edit-student-pane")
 
@@ -81,6 +90,7 @@ function editStudent() {
 
 }
 
+/* Submit handler for edit student submission - updates the user specified student information to the database via axios put request, dispatches the new student to our state, resets the form and then hides the edit-campus-pane. */
 function submitHandler(event) {
   event.preventDefault();
 
@@ -98,6 +108,7 @@ function submitHandler(event) {
     })
 }
 
+/* React-Reduc configuration */
 const mapStateToProps = function (state, ownProps) {
   const studentId = Number(ownProps.match.params.studentId);
   const currentStudent = state.students.find(student => student.id === studentId);

@@ -6,6 +6,8 @@ import {fetchCampuses, fetchStudents, deleteStudentFromDb} from '../reducers';
 import store from '../store';
 
 function SingleCampus (props) {
+
+  //deconstruct selected campus & associated students from props to use throughout this component
   const { campus, students } = props;
 
   return (
@@ -14,69 +16,84 @@ function SingleCampus (props) {
         <h1 className="header-text">{campus && campus.name}</h1>
         <a id="edit-campus" onClick={editCampus}>+Edit Campus Info</a>
       </div>
+
+      {/* Edit campus pane is initially hidden. When a user clicks the '+Edit Campus Info' button (displayed above), the edit-campus-pane node is displayed, allowing users to edit the campus information */}
       <div id="edit-campus-pane">
-      <h2 className="header-text">Edit Campus Info</h2>
-      <form id="edit-campus-input" onSubmit={submitHandler}>
-        <div>
-          <label>Campus Name</label>
-          <input name="campusName" defaultValue={campus && campus.name}/>
-        </div>
-        <div>
-          <label>Description</label>
-          <input name="campusDescription" defaultValue={campus && campus.description}/>
-        </div>
-        <div>
-          <label>Image URL</label>
-          <input name="imageUrl" defaultValue={campus && campus.imageUrl}/>
-        </div>
-        <div>
-          <button name="campusId" value={campus && campus.id}>Submit</button>
-        </div>
-      </form>
-    </div>
+        <h2 className="header-text">Edit Campus Info</h2>
+
+         {/* On submit - call the submitHander, which edits the campus' information in the DB via axios. Then will re-render the current page by dispatching the updated campus to state. */}
+        <form id="edit-campus-input" onSubmit={submitHandler}>
+          <div>
+            <label>Campus Name</label>
+            <input name="campusName" defaultValue={campus && campus.name}/>
+          </div>
+          <div>
+            <label>Description</label>
+            <input name="campusDescription" defaultValue={campus && campus.description}/>
+          </div>
+          <div>
+            <label>Image URL</label>
+            <input name="imageUrl" defaultValue={campus && campus.imageUrl}/>
+          </div>
+          <div>
+            <button name="campusId" value={campus && campus.id}>Submit</button>
+          </div>
+        </form>
+      </div>
+
       <h4 className="campus-description-page">{campus && campus.description}</h4>
       <div className="all-students">
-      <div className="campus-details-container">
-      <button className="add-student-btn" onClick={addStudent}>Add Student to {campus && campus.name}</button>
-      <div className="image-container">
-        <img className="campus-page-image" src={campus && campus.imageUrl} />
-      </div>
-      <div id="add-student-pane">
-      <h3 className="header-text">Add New Student to Campus!</h3>
-       <form id="student-input" onSubmit={studentSubmitHandler}>
-        <div>
-          <label>First Name</label>
-          <input name="firstName" />
+        <div className="campus-details-container">
+          {/* Visibility control - toggles the 'add-student-pane' which adds a student to the campus currently rendered on the page */}
+          <button className="add-student-btn" onClick={addStudent}>Add Student to {campus && campus.name}</button>
+
+          <div className="image-container">
+            <img className="campus-page-image" src={campus && campus.imageUrl} />
+          </div>
+
+          <div id="add-student-pane">
+            <h3 className="header-text">Add New Student to Campus!</h3>
+            {/* On submit - call the submitHander, which posts our new student to the Db with the correct CampusId via axios and will re-render the current page by dispatching the new entry to state. */}
+            <form id="student-input" onSubmit={studentSubmitHandler}>
+              <div>
+                <label>First Name</label>
+                <input name="firstName" />
+              </div>
+              <div>
+                <label>Last Name</label>
+                <input name="lastName" />
+              </div>
+              <div>
+                <button name="campus" value={campus && campus.id}>Submit</button>
+              </div>
+            </form>
+          </div>
+
+          {/*Display all students currently assigned to the campus being rendered*/}
+          <table id="all-students-table-campus">
+            <tr id="all-students-table-header">
+              <th className="student-table-header">Student ID</th>
+              <th className="student-table-header">Full Name</th>
+              <th className="student-table-header-center">Remove Student</th>
+            </tr>
+            {students && students.map(student => (
+              <tr className="student-listing" key={student.id}>
+                <td className="student-listing-item-center">{student.id}</td>
+                <td className="student-listing-item"><Link to={`/students/${student.id}`}>{student.name}</Link></td>
+                <td className="student-listing-item-center">
+                  {/*Allow users to remove students directly from the single-campus page*/}
+                  <button className="remove-student" value={student.id} onClick={removeStudent}>X</button>
+                </td>
+              </tr>
+            ))}
+          </table>
         </div>
-        <div>
-          <label>Last Name</label>
-          <input name="lastName" />
-        </div>
-        <div>
-          <button name="campus" value={campus && campus.id}>Submit</button>
-        </div>
-       </form>
       </div>
-      <table id="all-students-table-campus">
-        <tr id="all-students-table-header">
-          <th className="student-table-header">Student ID</th>
-          <th className="student-table-header">Full Name</th>
-          <th className="student-table-header-center">Remove Student</th>
-        </tr>
-        {students && students.map(student => (
-          <tr className="student-listing" key={student.id}>
-            <td className="student-listing-item-center">{student.id}</td>
-            <td className="student-listing-item"><Link to={`/students/${student.id}`}>{student.name}</Link></td>
-            <td className="student-listing-item-center"><button className="remove-student" value={student.id} onClick={removeStudent}>X</button></td>
-          </tr>
-        ))}
-      </table>
-      </div>
-    </div>
     </div>
   );
 }
 
+/* Visibility contorl - edit-campus-pane is only visible when users click the +Edit Campus Info button */
 function editCampus() {
   var element = document.getElementById("edit-campus-pane")
 
@@ -91,6 +108,7 @@ function editCampus() {
 
 }
 
+/* Visibility contorl - add-student-pane is only visible when users click the Add Student to Campus button */
 function addStudent() {
   var element = document.getElementById("add-student-pane")
 
@@ -105,6 +123,7 @@ function addStudent() {
 
 }
 
+/* Submit handler for edit campus submission - updates the user specified campus information to the database via axios put request, dispatches the new campus to our state, resets the form and then hides the edit-campus-pane. */
 function submitHandler(event) {
   event.preventDefault();
 
@@ -122,6 +141,7 @@ function submitHandler(event) {
     })
 }
 
+/* studentSubmitHandler for adding students to the campus - creates a new student instance in the database via axios post request and the proper campus association, dispatches the new student to our state, resets the form and then hides the edit-campus-pane. */
 function studentSubmitHandler(event) {
   event.preventDefault();
 
@@ -143,6 +163,7 @@ function studentSubmitHandler(event) {
   });
 }
 
+/* By clicking the remove student option, the specific student is removed from the database via axios. The state is then updated by dispatching the deleted student action to the store. */
 function removeStudent(event) {
   event.preventDefault();
 
@@ -155,6 +176,7 @@ function removeStudent(event) {
 
 }
 
+/* React-Reduc configuration */
 const mapStateToProps = function (state, ownProps) {
   const campusId = Number(ownProps.match.params.campusId);
 

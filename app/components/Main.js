@@ -11,6 +11,7 @@ import Welcome from './Welcome';
 
 export default class Main extends Component{
 
+  //upon mounting - fetch all campuses and students from the database and dispatch to state
   componentDidMount(){
     const campusesThunk = fetchCampuses();
     const studentsThunk = fetchStudents();

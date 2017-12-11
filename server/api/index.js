@@ -9,12 +9,15 @@ const Students = models.Students;
 	// I know this because we automatically send index.html for all requests that don't make sense in our backend.
 	// Ideally you would have something to handle this, so if you have time try that out!
 
+//Get route returns all campuses
 apiRouter.get('/campuses', (req, res, next) => {
 	Campuses.findAll({include: Students})
 	.then(campuses => res.json(campuses))
 	.catch(next);
 });
 
+
+//Get route returns a specific campus (by campus ID)
 apiRouter.get('/campuses/:campus', (req, res, next) => {
 	Campuses.findOne({
 		where: {
@@ -26,6 +29,7 @@ apiRouter.get('/campuses/:campus', (req, res, next) => {
 	.catch(next);
 });
 
+//Get route returns all students
 apiRouter.get('/students', (req, res, next) => {
 	Students.findAll({
 		include: Campuses
@@ -34,6 +38,7 @@ apiRouter.get('/students', (req, res, next) => {
 	.catch(next);
 });
 
+//Get route returns a specific student (by student ID)
 apiRouter.get('/students/:studentId', (req, res, next) => {
 	Students.findOne({
 		where: {
@@ -45,18 +50,23 @@ apiRouter.get('/students/:studentId', (req, res, next) => {
 	.catch(next);
 })
 
+
+//Post route creates a new campus
 apiRouter.post('/campus', (req, res, next) => {
 	Campuses.create(req.body)
 	.then(campus => res.status(201).json(campus))
 	.catch(next);
 });
 
+//Post route creates a new student
 apiRouter.post('/student', (req, res, next) => {
 	Students.create(req.body,{include: [Campuses]})
 	.then(student => res.status(201).json(student))
 	.catch(next);
 });
 
+
+//Delete route removes a specific student (by student ID)
 apiRouter.delete('/student/:student', (req, res, next) => {
 	let id = parseInt(req.params.student)
 	console.log(id)
@@ -72,6 +82,8 @@ apiRouter.delete('/student/:student', (req, res, next) => {
 	.catch(next);
 });
 
+
+//Delete route removes a specific campus (by campus ID). Deletes all students associated to the campus
 apiRouter.delete('/campus/:campus', (req, res, next) => {
 	let id = parseInt(req.params.campus)
 
@@ -87,6 +99,7 @@ apiRouter.delete('/campus/:campus', (req, res, next) => {
 	.catch(next);
 });
 
+//Put route updates a specific student's information
 apiRouter.put('/student/:student', (req, res, next) => {
 	let id = parseInt(req.params.student)
 
@@ -108,6 +121,7 @@ apiRouter.put('/student/:student', (req, res, next) => {
 		.catch(next);
 });
 
+//Put route updates a specific campus' information
 apiRouter.put('/campus/:campus', (req, res, next) => {
 	let id = parseInt(req.params.campus)
 
@@ -121,7 +135,5 @@ apiRouter.put('/campus/:campus', (req, res, next) => {
 		.catch(next);
 
 })
-
-// You can put all routes in this file; HOWEVER, this file should almost be like a table of contents for the routers you create
 
 module.exports = apiRouter;
